@@ -1,41 +1,27 @@
 #include <bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+   ios::sync_with_stdio(false);
+   cin.tie(nullptr);
 
-    int tc;
-    if (!(cin >> tc)) 
-    return 0;
-    while (tc--) {
-        int n;
-        long long s;
-        cin >> n >> s;
-        vector<long long> arr(n);
-        for (int i = 0; i < n; i++) 
-            cin >> arr[i];
-
-        int ans = n + 1;
-        int l = 0, r = 0;
-        long long res = s;
-
-        while (l < n) {
-            if (res == 0) ans = min(ans, l + (n - r));
-            if (res < 0 || r == n) {
-                res += arr[l];
-                l++;
-            } else {
-                res -= arr[r];
-                r++;
-            }
-        }
-
-        if (ans > n) 
-            cout << -1 << '\n';
-        else 
-            cout << ans << '\n';
-    }
-
-    return 0;
+   int n, m;
+   cin >> n >> m;
+   pbds<int> pb;
+   for (int i = 1;i <= n;i++) {
+      int x;
+      cin >> x;
+      pb.insert(x);
+   }
+   for (int i = 1;i <= m;i++) {
+      int x;
+      cin >> x;
+      cout << pb.order_of_key(x + 1) << " ";
+   }
+   cout << '\n';
+   return 0;
 }
